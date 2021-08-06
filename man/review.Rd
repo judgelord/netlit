@@ -4,7 +4,7 @@
 \alias{review}
 \title{Creates a nodelist augmented with igraph network statisitics}
 \usage{
-review(data, node_attributes = tibble(node = ""))
+review(data, edge_attributes = "", node_attributes = tibble(node = ""))
 }
 \arguments{
 \item{node_attributes}{(optional) is a dataframe with columns "node" as well as any node attributes. Node attribute names may not be the same as any edge attribute names.}

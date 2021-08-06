@@ -9,13 +9,13 @@
 #' @examples
 #' review(data)
 
-review <- function(data, node_attributes = tibble(node = "")){
+review <- function(data, edge_attributes = "", node_attributes = tibble(node = "")){
 
   d <- clean_input(data)
 
-  edgelist <- make_edgelist(d)
+  edgelist <- make_edgelist(d, edge_attributes = edge_attributes)
 
-  nodelist <- make_nodelist(d) %>% augment_nodelist(edgelist)
+  nodelist <- make_nodelist(d, node_attributes = node_attributes) %>% augment_nodelist(edgelist)
 
   return(list(nodelist = nodelist,
               edgelist = edgelist)
