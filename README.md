@@ -7,7 +7,7 @@ This package provides functions to generate network statistics from a literature
 
 # Basic Usage
 
-The `data` argument must include columns `from` and `to` (a directed graph structure). 
+The `review()` function takes in a dataframe, `data`, that must include `from` and `to` columns (a directed graph structure). 
 
 The package loads example `data` from [this project on redistricting](https://github.com/judgelord/redistricting).
 
@@ -29,15 +29,15 @@ The package loads example `data` from [this project on redistricting](https://gi
 # … with 166 more rows
 ```
 
-`literature::review` returns a list of 2 with an edgelist, and nodelist augmented with a betweenness score from `igraph::degree()`:
+`review()` returns a list of 2 with an edgelist, and nodelist augmented with a betweenness score from `igraph::degree()`:
 
 
 ```
-> literature::review(data)
+> review(data)
 Dropping 26 rows missing `from` or `to` values
 $nodelist
 # A tibble: 114 x 2
-   node                                                 betweeness
+   node                                                 betweenness
    <chr>                                                     <dbl>
  1 goal - communities preserved                                 10
  2 goal - partisan advantage                                     7
