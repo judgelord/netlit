@@ -16,7 +16,6 @@ clean_input <- function(data){
                   nrow(data) - nrow(data_clean),
                   "rows missing `from` or `to` values")
             )
-
-  return(data_clean)
   }
+  return(data_clean)
 }
