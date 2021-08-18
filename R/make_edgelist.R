@@ -11,9 +11,10 @@
 make_edgelist <- function(data, edge_attributes = "") {
   edgelist <- select(data, from, to, any_of(edge_attributes))
 
-  edgelist$edge_betweenness <- edge_betweenness(graph, e = E(graph) )
+  graph <- igraph::graph.data.frame(edgelist, directed = T)
 
-  nodelist$edge_betweeness <- degree_value[match(nodelist$node, names(degree_value))]
+
+  edgelist$edge_betweenness <- edge_betweenness(graph, e = E(graph) )
 
   return(edgelist)
 }
