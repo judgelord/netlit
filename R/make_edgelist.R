@@ -9,7 +9,7 @@
 #' make_edgelist()
 
 make_edgelist <- function(data, edge_attributes = "") {
-  edgelist <- select(data, to, from, any_of(edge_attributes))
+  edgelist <- select(data, from, to, any_of(edge_attributes))
 
   return(edgelist)
 }

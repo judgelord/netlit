@@ -12,7 +12,7 @@ augment_nodelist <- function(nodelist, edgelist){
 
   # calculate node attributes from network structure
   graph <- igraph::graph.data.frame(edgelist, directed = T)
-  degree_value <- degree(graph, mode = "in")
+  degree_value <- igraph::degree(graph, mode = "in")
   nodelist$betweeness <- degree_value[match(nodelist$node, names(degree_value))]
 
   return(nodelist)

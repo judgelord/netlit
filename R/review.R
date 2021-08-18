@@ -18,6 +18,7 @@ review <- function(data, edge_attributes = "", node_attributes = tibble(node = "
   nodelist <- make_nodelist(d, node_attributes = node_attributes) %>% augment_nodelist(edgelist)
 
   return(list(nodelist = nodelist,
-              edgelist = edgelist)
+              edgelist = edgelist,
+              graph = graph_from_data_frame(d=edgelist, vertices=nodelist, directed=T))
   )
 }

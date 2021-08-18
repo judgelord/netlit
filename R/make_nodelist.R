@@ -5,6 +5,7 @@
 #' @param node_attributes (optional) is a dataframe with columns "node" as well as node attributes. Node attribute names may not be the same as any edge attribute names.
 #' @keywords node
 #' @export
+
 make_nodelist <- function(data, node_attributes = tibble(node = "")){
   nodelist <- tibble(node = c(data$to, data$from)) %>%
     distinct() %>%
