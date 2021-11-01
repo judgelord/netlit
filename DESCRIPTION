@@ -6,8 +6,7 @@ Authors@R:
            family = "Judge-Lord",
            role = c("aut", "cre"),
            email = "devinjudgelord@fas.harvard.edu",
-           comment = c(ORCID = "https://orcid.org/0000-0002-4384-4380
-"))
+           comment = c(ORCID = "https://orcid.org/0000-0002-4384-4380"))
 Description: This package takes in a dataframe where each row is a relationship between concepts (an edgelist). Various functions produce common summary statistics of networks. The aim is to aid literature reviews with network analysis statistics.
 License: MIT + file LICENSE
 Encoding: UTF-8
