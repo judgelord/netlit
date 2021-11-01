@@ -9,16 +9,18 @@
 #' @examples
 #' review(data)
 
-review <- function(data, edge_attributes = "", node_attributes = tibble(node = "")){
+review <- function(data, edge_attributes = "", node_attributes = dplyr::tibble(node = "")){
 
   d <- clean_input(data)
 
   edgelist <- make_edgelist(d, edge_attributes = edge_attributes)
 
-  nodelist <- make_nodelist(d, node_attributes = node_attributes) %>% augment_nodelist(edgelist)
+  nodelist <- make_nodelist(d, node_attributes = node_attributes) 
+  
+  nodelist <- augment_nodelist(nodelist, edgelist)
 
   return(list(nodelist = nodelist,
               edgelist = edgelist,
-              graph = graph_from_data_frame(d=edgelist, vertices=nodelist, directed=T))
+              graph = igraph::graph_from_data_frame(d=edgelist, vertices=nodelist, directed=T))
   )
 }

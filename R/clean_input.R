@@ -8,8 +8,7 @@
 #' clean_input()
 
 clean_input <- function(data){
-  data_clean <- data %>%
-    drop_na(to, from)
+  data_clean <- tidyr::drop_na(data, to, from)
 
   if(nrow(data) != nrow(data_clean)){
     message(paste("Dropping",

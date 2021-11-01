@@ -6,10 +6,10 @@
 #' @keywords node
 #' @export
 
-make_nodelist <- function(data, node_attributes = tibble(node = "")){
-  nodelist <- tibble(node = c(data$to, data$from)) %>%
-    distinct() %>%
-    left_join(node_attributes, by = "node")
+make_nodelist <- function(data, node_attributes = dplyr::tibble(node = "")){
+  nodelist <- dplyr::tibble(node = c(data$to, data$from)) %>%
+    dplyr::distinct() %>%
+    dplyr::left_join(node_attributes, by = "node")
 
   return(nodelist)
 }

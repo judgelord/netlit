@@ -9,12 +9,12 @@
 #' make_edgelist()
 
 make_edgelist <- function(data, edge_attributes = "") {
-  edgelist <- select(data, from, to, any_of(edge_attributes))
+  edgelist <- dplyr::select(data, from, to, any_of(edge_attributes))
 
   graph <- igraph::graph.data.frame(edgelist, directed = T)
 
 
-  edgelist$edge_betweenness <- edge_betweenness(graph, e = E(graph) )
+  edgelist$edge_betweenness <- edge_betweenness(graph, e = igraph::E(graph) )
 
   return(edgelist)
 }
