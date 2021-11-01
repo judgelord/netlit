@@ -9,7 +9,7 @@ This package provides functions to generate network statistics from a literature
 
 The `review()` function takes in a dataframe, `data`, that must include `from` and `to` columns (a directed graph structure). 
 
-The package loads example `data` from [this project on redistricting](https://github.com/judgelord/redistricting).
+The package loads example `data` from [this project on redistricting](https://github.com/judgelord/redistricting). See a vignette using these the NetLit package to analize these data at https://judgelord.github.io/redistricting-NetLit/vignette.html
 
 ```
 > data
