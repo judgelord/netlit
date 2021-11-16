@@ -1,24 +1,24 @@
-Package: NetLit
+Package: netlit
 Title: Augment a literature review with network analysis statistics
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "Devin",
+    c(person(given = "Devin",
            family = "Judge-Lord",
            role = c("aut", "cre"),
            email = "devinjudgelord@fas.harvard.edu",
-           comment = c(ORCID = "https://orcid.org/0000-0002-4384-4380"))
-Description: This package takes in a dataframe where each row is a relationship between concepts (an edgelist). Various functions produce common summary statistics of networks. The aim is to aid literature reviews with network analysis statistics.
+           comment = c(ORCID = "0000-0002-4384-4380")),
+      person("Noah", "Greifer", role = c("aut"), 
+         email = "ngreifer@iq.harvard.edu",
+	       comment = c(ORCID="0000-0003-3067-7154")))
+Description: A suite of functions to aid in preforming network analysis for literature reviews. These functions process data sets contaiing directed edges and produce objects that can be readily used with 'igraph' and other netwrok graph-based tools for visualizaiton and analysis.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
 Imports: 
-    igraph,
-    dplyr,
-    tidyr
+    igraph (>= 1.2.7),
+    rlang (>= 0.4.12)
 Depends: 
-    R (>= 2.10)
-Suggests: 
-    testthat (>= 3.0.0)
-Config/testthat/edition: 3
+    R (>= 3.5.0)
+Suggests:
+    	knitr, 
+    	rmarkdown
