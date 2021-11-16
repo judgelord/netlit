@@ -1,24 +1,31 @@
-#' Augment nodelist and edgelist with igraph network statisitics
-#'
-#' This function augments the node list with outputs from the igraph package.
-#' @param edgelist is a dataframe with columns "from" and "to" as well as edge attributes (optional). Edge attribute names may not be the same as any node attribute names.
-#' @param nodelist is a dataframe with columns "node" as well as any node attributes. Node attribute names may not be the same as any edge attribute names.
-#' @keywords node
-#' @export
-#' @examples
-#' augment_nodelist()
+augment_nodelist <- function(nodelist, edgelist = NULL, graph = NULL){
 
-augment_nodelist <- function(nodelist, edgelist){
+  if (!inherits(nodelist, "netlit_nodelist")) {
+    abort("'nodelist' must be the output of a call to make_nodelist().")
+  }
 
-  # calculate node attributes from network structure
-  graph <- igraph::graph.data.frame(edgelist, directed = T)
+  node <- attr(nodelist, "node")
+  if (is_empty(node)) node <- names(nodelist)[1]
 
-  degree_value <- igraph::degree(graph, mode = "in")
-  nodelist$degree <- degree_value[match(nodelist$node, names(degree_value))]
+  if (is_empty(graph)) {
+    if (!is_empty(edgelist)) {
+      if (!inherits(edgelist, "netlit_edgelist")) {
+        abort("'edgelist' must be the output of a call to make_edgelist().")
+      }
+      graph <- igraph::graph_from_data_frame(edgelist, directed = TRUE)
+    }
+  }
 
+  if (!is_empty(graph)) {
+    if (!inherits(graph, "igraph")) {
+      abort("'graph' must be an igraph object.")
+    }
+    degree_value <- igraph::degree(graph, mode = "in")
+    nodelist$degree <- degree_value[match(nodelist[[node]], names(degree_value))]
+  }
 
-  betweenness_value <- igraph::betweenness(graph, v = V(graph) )
-  nodelist$betweenness <- betweenness_value[match(nodelist$node, names(betweenness_value))]
+  betweenness_value <- igraph::betweenness(graph)
+  nodelist$betweenness <- betweenness_value[match(nodelist[[node]], names(betweenness_value))]
 
   return(nodelist)
 }
