@@ -34,8 +34,7 @@ data("literature")
 names(literature)
 ```
 
-    #>  [1] "core"                  "from"                  "edge"                  "to"                    "cites_pre2010"         "cites"                 "cites_empirical"       "mechanism"            
-    #>  [9] "cite_weight"           "cite_empirical_weight"
+    #> [1] "to"              "from"            "cites"           "cites_empirical"
 
 `netlit` offers four functions: `make_edgelist()`, `make_nodelist()`,
 `augment_nodelist()`, and `review()`.
@@ -75,7 +74,7 @@ lit
     #>  - 69 edges
     #>  - edge attributes: edge_betweenness
     #> $nodelist
-    #>  - 69 nodes
+    #>  - 57 nodes
     #>  - node attributes: degree, betweenness
     #> $graph
     #>    an igraph object
@@ -84,25 +83,25 @@ lit
 head(lit$edgelist)
 ```
 
-    #>                                from                                                              to edge_betweenness
-    #> 1           partisan gerrymandering concentration of likely donors in map-drawing party's districts                2
-    #> 2 change in constituency boundaries                                    individual legislator voting                1
-    #> 3 change in constituency boundaries                                            legislative outcomes                1
-    #> 4 change in constituency boundaries                                         effect of personal vote                1
-    #> 5                       compactness                                              partisan advantage               12
-    #> 6                   competitiveness                                                   voter turnout                1
+    #>                               from                               to edge_betweenness
+    #> 1                        computers            detect gerrymandering              2.0
+    #> 2                        computers             public participation              1.0
+    #> 3  number of competitive districts preserve communities of interest             88.0
+    #> 4               partisan advantage                  proportionality             19.5
+    #> 5          partisan gerrymandering                   efficiency gap             13.5
+    #> 6 preserve communities of interest              constitutional test              7.0
 
 ``` r
 head(lit$nodelist)
 ```
 
-    #>                                  node degree betweenness
-    #> 1             partisan gerrymandering      1           4
-    #> 2   change in constituency boundaries      0           0
-    #> 3                         compactness      2           0
-    #> 4                     competitiveness      0           0
-    #> 5                           computers      0           0
-    #> 6 demographic and ideological sorting      0           0
+    #>                               node degree betweenness
+    #> 1                        computers      0         0.0
+    #> 2  number of competitive districts      1        66.0
+    #> 3               partisan advantage      6       113.5
+    #> 4          partisan gerrymandering      1        42.0
+    #> 5 preserve communities of interest      2        81.0
+    #> 6      mean-median vote comparison      0         0.0
 
 Edge and node attributes can be added using the `edge_attributes` and
 `node_attributes` arguments. `edge_attributes` is a vector that
@@ -118,13 +117,13 @@ data("node_attributes")
 head(node_attributes)
 ```
 
-    #>                                                                  node   type
-    #> 1 alignment of floor vote breakdown with statewide majority of voters effect
-    #> 2                                              bipartisan gerrymander policy
-    #> 3                                        campaign resource allocation   <NA>
-    #> 4                                                   campaign spending effect
-    #> 5                                                   candidate quality effect
-    #> 6                                   change in constituency boundaries   <NA>
+    #>                                                                  node      type
+    #> 1 Alignment of floor vote breakdown with statewide majority of voters    effect
+    #> 2                                              bipartisan gerrymander    policy
+    #> 3                                        campaign resource allocation    effect
+    #> 4                                                   campaign spending    effect
+    #> 5                                                   candidate quality    effect
+    #> 6                                   change in constituency boundaries condition
 
 ``` r
 lit <- review(literature,
@@ -138,9 +137,9 @@ lit
     #> 
     #> $edgelist
     #>  - 69 edges
-    #>  - edge attributes: core, edge, cites_pre2010, cites, cites_empirical, mechanism, cite_weight, cite_empirical_weight, edge_betweenness
+    #>  - edge attributes: cites, cites_empirical, edge_betweenness
     #> $nodelist
-    #>  - 69 nodes
+    #>  - 57 nodes
     #>  - node attributes: type, degree, betweenness
     #> $graph
     #>    an igraph object
@@ -149,43 +148,22 @@ lit
 head(lit$edgelist)
 ```
 
-    #>                                from                                                              to core               edge cites_pre2010                                          cites
-    #> 1           partisan gerrymandering concentration of likely donors in map-drawing party's districts   NA          increases          <NA>                                  Kirkland 2013
-    #> 2 change in constituency boundaries                                    individual legislator voting   NA no effect, effects          <NA>      Bertelli & Carson 2011, Hayes et al. 2010
-    #> 3 change in constituency boundaries                                            legislative outcomes   NA            effects          <NA> Bertelli & Carson 2011, Gul & Pesendorfer 2010
-    #> 4 change in constituency boundaries                                         effect of personal vote   NA          decreases          <NA>                         Bertelli & Carson 2011
-    #> 5                       compactness                                              partisan advantage   NA          increases          <NA>                             Chen & Rodden 2013
-    #> 6                   competitiveness                                                   voter turnout   NA          no effect          <NA>                       Moskowitz & Schneer 2019
-    #>                             cites_empirical
-    #> 1                             Kirkland 2013
-    #> 2 Bertelli & Carson 2011, Hayes et al. 2010
-    #> 3                    Bertelli & Carson 2011
-    #> 4                                      <NA>
-    #> 5                        Chen & Rodden 2013
-    #> 6                  Moskowitz & Schneer 2019
-    #>                                                                                                                                                                                                                                                                                                                                mechanism
-    #> 1                                                                                          Parties care about other resources in addition to votes, such as donations. They can use redistricting to concentrate likely donors into their districts and remove them from opponents' districts, thus increasing their odds of reelection.
-    #> 2 Bertelli and Carson argue that partisan gerrymandering is a form of risk-sharing, in which individual members do not have to radically change their positions while maintaining their odds of reelection. In contrast, Hayes et al. say that legislators respond to the demographic changes of their constituency after redistricting.
-    #> 3                          Bertelli & Carson: Partisan gerrymandering helps the majority party achieve its policy goals by increasing the odds of electoral success without requiring much sacrifice by individual members. Gul & Pesendorfer: use formal theory to show that policy outcomes are biased towards the redistricting party
-    #> 4                                                                                                                                                                                               When new voters are added to an incumbent's district, that incumbent's personal characteristics play less of a role in their reelection.
-    #> 5                                                                                                                                                                                                           Democrats' concentration in cities leads to a Republican bias, due to the geographic, majoritarian nature of U.S. elections.
-    #> 6                                            Residents of competitive districts systematically differ from those in non-competitive districts, leading cross-sectional studies to erroneously find a relationship between competitiveness and turnout. In addition, most voters aren't aware of the competitiveness of their House race.
-    #>   cite_weight cite_empirical_weight edge_betweenness
-    #> 1           1                     1                2
-    #> 2           1                     1                1
-    #> 3           1                     1                1
-    #> 4           1                     0                1
-    #> 5           1                     1               12
-    #> 6           1                     1                1
+    #>                               from                               to                                                                               cites              cites_empirical edge_betweenness
+    #> 1                        computers            detect gerrymandering Altman & McDonald 2010; Wang 2016; Altman & McDonald 2011; Ramachandran & Gold 2018                    Wang 2016              2.0
+    #> 2                        computers             public participation                                      Altman & McDonald 2010; Altman & McDonald 2011                         <NA>              1.0
+    #> 3  number of competitive districts preserve communities of interest                                                        Gimpel & Harbridge-Yong 2020 Gimpel & Harbridge-Yong 2020             88.0
+    #> 4               partisan advantage                  proportionality                                                     Caughey et al. 2017; Tamas 2019                         <NA>             19.5
+    #> 5          partisan gerrymandering                   efficiency gap                                                                           Chen 2017                    Chen 2017             13.5
+    #> 6 preserve communities of interest              constitutional test                                                                 Stephanopoulos 2012                         <NA>              7.0
 
 ``` r
 head(lit$nodelist)
 ```
 
-    #>                                  node      type degree betweenness
-    #> 1             partisan gerrymandering      <NA>      1           4
-    #> 2   change in constituency boundaries      <NA>      0           0
-    #> 3                     competitiveness      <NA>      0           0
-    #> 4                           computers      <NA>      0           0
-    #> 5 demographic and ideological sorting condition      0           0
-    #> 6       dispersed minority population condition      0           0
+    #>                               node      type degree betweenness
+    #> 1                        computers condition      0         0.0
+    #> 2               partisan advantage      goal      6       113.5
+    #> 3          partisan gerrymandering condition      1        42.0
+    #> 4 preserve communities of interest      goal      2        81.0
+    #> 5      mean-median vote comparison    metric      0         0.0
+    #> 6      majority minority districts    policy      0         0.0

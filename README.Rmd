@@ -8,6 +8,7 @@ editor_options:
 
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
+  cache = FALSE,
   collapse = FALSE,
   warning = FALSE,
   message = FALSE,
@@ -25,7 +26,7 @@ knitr::opts_chunk$set(
 
 To install `netlit` from CRAN, run the following:
 
-```{r, eval=F}
+```{r, eval=FALSE}
 install.packages("netlit")
 ```
 
