@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 # netlit: Augment a literature review with network analysis statistics
 ------
 
-`netlit` provides functions to generate network statistics from a literature review. Specifically, it process a dataset where each row is a proposed relationship ("edges") between two concepts or variables ("nodes").
+`netlit` provides functions to generate network statistics from a literature review. Specifically, it processes a dataset where each row is a proposed relationship ("edges") between two concepts or variables ("nodes").
 
 To install `netlit` from CRAN, run the following:
 
@@ -31,9 +31,9 @@ install.packages("netlit")
 
 ## Basic Usage
 
-The `review()` function takes in a data frame, `data`, that includes `from` and `to` columns (a directed graph structure). 
+The `review()` function takes in a dataframe, `data`, that includes `from` and `to` columns (a directed graph structure). 
 
-In the example below, we use example data from [this project on redistricting](https://github.com/judgelord/redistricting). See `vignette("netlit")` for more details on this example.
+In the example below, we use example data from [this project on redistricting](https://github.com/judgelord/redistricting). These data are a set of related concepts (`from` and `to`) in the redistricting literature and citations for these relationships (`cites` and `cites_empirical`). See `vignette("netlit")` for more details on this example.
 
 ```{r}
 library(netlit)
@@ -43,15 +43,30 @@ data("literature")
 names(literature)
 ```
 
-The four functions `netlit` offers are `make_edgelist()`, `make_nodelist()`, `augment_nodelist()`, and `review()`. `review()` is the primary function (and probably the only one you need), and the others are helper functions that perform the individual steps that `reviews()` all at once. `review()` takes in a data set with a `from` column, a `to` column, and possibly edge attributes and returns a data structure that includes the inputs augmented with network statistics and an `igraph` graph that can be plotted using functionality in `igraph` or other network visualization packages. We demonstrate `review()` below:
+`netlit` offers four functions: `make_edgelist()`, `make_nodelist()`, `augment_nodelist()`, and `review()`. 
+
+`review()` is the primary function (and probably the only one you need). The others are helper functions that perform the individual steps that `review()` does all at once. `review()` takes in a dataframe with at least two columns representing linked concepts (e.g., a cause and an effect) and returns data augmented with network statistics. Users must either specify "from" nodes and "to" nodes with the `from` and `to` arguments or include columns named `from` and `to` in the supplied `data` object.
+
+`review()` returns a list of three objects: 
+
+1. an augmented `edgelist` (a list of relationships with `edge_betweenness` calculated), 
+2. an augmented `nodelist` (a list of concepts with `degree` and `betweenness` calculated), and 
+3. a `graph` object suitable for use in other `igraph` functions or other network visualization packages. 
+
+Users may wish to include edge attributes (e.g., information about the relationship between the two concepts) or node attributes (information about each concept). We show how to do so below. But first, consider the basic use of `review()`: 
+
 
 ```{r}
-lit <- review(literature)
+lit <- review(literature, from = "from", to = "to")
 
 lit
+
+head(lit$edgelist)
+
+head(lit$nodelist)
 ```
 
-Edge and node attributes can be added as well using the `edge_attributes` and `node_attributes` arguments. `edge_attributes` identifies the column in the data set that correspond to edge attributes, and `node-attributes` is a separate dataset contain attributes for each node in the primary data set.
+Edge and node attributes can be added using the `edge_attributes` and `node_attributes` arguments. `edge_attributes` is a vector that identifies columns in the supplied data frame that the user would like to retain. `node_attributes` is a separate dataframe that contains attributes for each node in the primary data set. The example `node_attributes` data include one column `type` indicating a type for each each node/variable/concept. 
 
 ```{r}
 data("node_attributes")
@@ -59,9 +74,13 @@ data("node_attributes")
 head(node_attributes)
 
 lit <- review(literature,
-              edge_attributes = c("mechanism", "cites"),
+              edge_attributes = names(literature), # c("cites", "cites_empirical"),
               node_attributes = node_attributes)
 
 lit
+
+head(lit$edgelist)
+
+head(lit$nodelist)
 ```
 
