@@ -43,8 +43,9 @@ names(literature)
 The others are helper functions that perform the individual steps that
 `review()` does all at once. `review()` takes in a dataframe with at
 least two columns representing linked concepts (e.g., a cause and an
-effect) and returns data augmented with network statistics. Users must
-either specify “from” nodes and “to” nodes with the `from` and `to`
+effect) and returns data augmented with network statistics. 
+
+Users must either specify “from” nodes and “to” nodes with the `from` and `to`
 arguments or include columns named `from` and `to` in the supplied
 `data` object.
 
