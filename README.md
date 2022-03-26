@@ -36,7 +36,7 @@ names(literature)
 
     #> [1] "to"              "from"            "cites"           "cites_empirical"
 
-`netlit` offers four functions: `make_edgelist()`, `make_nodelist()`,
+`netlit` includes four functions: `make_edgelist()`, `make_nodelist()`,
 `augment_nodelist()`, and `review()`.
 
 `review()` is the primary function (and probably the only one you need).
@@ -53,7 +53,7 @@ arguments or include columns named `from` and `to` in the supplied
 
 1.  an augmented `edgelist` (a list of relationships with
     `edge_betweenness` calculated),
-2.  an augmented `nodelist` (a list of concepts with `degree` and
+2.  an augmented `nodelist` (a list of concepts with `degree_in`, `degree_out`, `degree_total`, and
     `betweenness` calculated), and
 3.  a `graph` object suitable for use in other `igraph` functions or
     other network visualization packages.
@@ -110,7 +110,7 @@ identifies columns in the supplied data frame that the user would like
 to retain. `node_attributes` is a separate dataframe that contains
 attributes for each node in the primary data set. The example
 `node_attributes` data include one column `type` indicating a type for
-each each node/variable/concept.
+each node/variable/concept.
 
 ``` r
 data("node_attributes")
