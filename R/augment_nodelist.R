@@ -20,8 +20,21 @@ augment_nodelist <- function(nodelist, edgelist = NULL, graph = NULL){
     if (!inherits(graph, "igraph")) {
       abort("'graph' must be an igraph object.")
     }
-    degree_value <- igraph::degree(graph, mode = "in")
-    nodelist$degree <- degree_value[match(nodelist[[node]], names(degree_value))]
+    
+    degree_in <- igraph::degree(graph, mode = "in")
+    
+    nodelist$degree_in <- degree_in[match(nodelist[[node]], names(degree_in))]
+    
+    degree_out <- igraph::degree(graph, mode = "out")
+    
+    nodelist$degree_out <- degree_out[match(nodelist[[node]], names(degree_out))]
+    
+    degree_total <- igraph::degree(graph, mode = "total")
+    
+    nodelist$degree_total <- degree_total[match(nodelist[[node]], names(degree_total))]
+    
+    
+    
   }
 
   betweenness_value <- igraph::betweenness(graph)
