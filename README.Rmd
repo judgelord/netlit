@@ -19,6 +19,7 @@ knitr::opts_chunk$set(
   R.options = list(width = 200)
 )
 ```
+
 # netlit: Augment a literature review with network analysis statistics
 ------
 
@@ -54,6 +55,8 @@ names(literature)
 2. an augmented `nodelist` (a list of concepts with `degree` and `betweenness` calculated), and 
 3. a `graph` object suitable for use in other `igraph` functions or other network visualization packages. 
 
+### Including node attributes
+
 Users may wish to include edge attributes (e.g., information about the relationship between the two concepts) or node attributes (information about each concept). We show how to do so below. But first, consider the basic use of `review()`: 
 
 
@@ -67,7 +70,13 @@ head(lit$edgelist)
 head(lit$nodelist)
 ```
 
-Edge and node attributes can be added using the `edge_attributes` and `node_attributes` arguments. `edge_attributes` is a vector that identifies columns in the supplied data frame that the user would like to retain. `node_attributes` is a separate dataframe that contains attributes for each node in the primary data set. The example `node_attributes` data include one column `type` indicating a type for each each node/variable/concept. 
+Edge and node attributes can be added using the `edge_attributes` and `node_attributes` arguments. 
+
+`edge_attributes` is a vector that identifies columns in the supplied data frame that the user would like to retain. (To retain all variables from `literature`, use `edge_attributes = names(literature)`.)
+
+`node_attributes` is a separate dataframe that contains attributes for each node in the primary data set. `node_attributes` must be a dataframe with a column `node` with values matching the `to` or `from` columns of the `data` argument.
+
+The example `node_attributes` data include one column `type` indicating a type for each each node/variable/concept. 
 
 ```{r}
 data("node_attributes")
@@ -75,7 +84,7 @@ data("node_attributes")
 head(node_attributes)
 
 lit <- review(literature,
-              edge_attributes = names(literature), # c("cites", "cites_empirical"),
+              edge_attributes = c("cites", "cites_empirical"),
               node_attributes = node_attributes)
 
 lit
@@ -84,4 +93,3 @@ head(lit$edgelist)
 
 head(lit$nodelist)
 ```
-
