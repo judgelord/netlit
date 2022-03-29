@@ -43,7 +43,7 @@ The `netlit`  package provides functions to generate network statistics from a l
 
 Install this package with 
 ```
-devtools::install_github("judgelord/netlit")
+devtools::install_github("judgelord/netlit", force = TRUE)
 ```
 
 To install `netlit` from CRAN, run the following:
@@ -63,7 +63,6 @@ library(netlit)
 
 data("literature")
 
-#FIXME should have loaded with data("literature")
 literature <- netlit::.
 
 literature %>% 
@@ -80,8 +79,8 @@ literature %>%
 
 `review()` returns a list of three objects: 
 
-1. an augmented `edgelist` (a list of relationships with `edge_betweenness` calculated), 
-2. an augmented `nodelist` (a list of concepts with `degree` and `betweenness` calculated), and 
+1. an augmented `edgelist` (a data frame of relationships with `edge_betweenness` calculated for each relationship betweeing concepts in the `to` and `from` columns), 
+2. an augmented `nodelist` (a data frame of concepts with `degree` and `betweenness` calculated for each `node`), and 
 3. a `graph` object suitable for use in other `igraph` functions or other network visualization packages. 
 
 Users may wish to include edge attributes (e.g., information about the relationship between the two concepts) or node attributes (information about each concept). We show how to do so below. But first, consider the basic use of `review()`: 
