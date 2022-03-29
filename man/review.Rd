@@ -1,8 +1,8 @@
 \name{review}
 \alias{review}
-\title{Create a nodelist augmented with \code{igraph} network statisitics}
+\title{Create an edgelist and nodelist augmented with \code{igraph} network statisitics}
 \description{
-Processes a dataset containing nodes and edges by adding network statistics and producing an \code{igraph} graph object for use in subsequent analysis.
+Processes a dataframe (and edgelist) by adding network statistics and producing a nodelist and an \code{igraph} graph object for use in subsequent analysis.
 }
 \usage{
 review(data, edge_attributes = NULL,
@@ -14,7 +14,7 @@ review(data, edge_attributes = NULL,
 a data set with a "from" column and a "to" column, where each row represents a directed edge. (See the \code{from} and \code{to} arguments below if these columns have names other than \code{"from"} and \code{"to"}.)
 }
 \item{edge_attributes}{
-an optional character vector of the names of columns in \code{data} containing edge attributes. See \code{\link{make_edgelist}}.
+an optional character vector of the names of columns in \code{data} containing edge attributes. Specified columns will be retained in the augmented edgelist. Others will be dropped. See \code{\link{make_edgelist}}.
 }
 \item{node_attributes}{
 an optional data frame with columns "node" as well as any node attributes. Node attribute names may not be the same as any edge attribute names. See \code{\link{make_nodelist}}
@@ -26,14 +26,14 @@ the name of the column in \code{data} that should be considered the "from" colum
 the name of the column in \code{data} that should be considered the "to" column, ie., representing the nodes to which directed edges point. Default is \code{"to"}.
 }
 \item{node}{
-the name of the column in \code{node_attributes} that should be considered the "node" column that contains the names of the nodes. Default is \code{"node"}.
+the name of the column in \code{node_attributes} that should be considered the "node" column that contains the names of the nodes. These names should correspond to node names in the "to" or "from" columns of the main data.  Default is \code{"node"}.
 }
 }
 \value{
 A \code{netlit_review} object, which contains three elements:
-\item{edgelist}{an edge list with the included edge attributes and the \code{edge_betweenness} column added}
-\item{nodelist}{a node list with the included node attributes and the \code{degree} and \code{betweenness} columns added}
-\item{graph}{an \code{igraph} object created from \code{edgelist} and \code{nodelist}}
+\item{edgelist}{an edge list with the selected edge attributes and the \code{edge_betweenness} column added}
+\item{nodelist}{a node list with the included node attributes and the \code{degree_in}, \code{degree_out},  \code{degree_total} and \code{betweenness} columns added}
+\item{graph}{an \code{igraph} graph object created from the \code{edgelist} and \code{nodelist}}
 
 There is a \code{print} method that reports some basic summaries of the object.
 }
@@ -54,7 +54,7 @@ lit
 
 data("node_attribites")
 lit <- review(literature,
-              edge_attributes = c("mechanism", "cites"),
+              edge_attributes = c("cites", "cites_empirical"),
               node_attributes = node_attributes)
 lit
 }

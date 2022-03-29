@@ -3,7 +3,7 @@
 \title{Make nodelist}
 
 \description{
-\code{make_nodelist()} makes a node list from the supplied data frame. A node list is a data frame with a "node" column and, optionally, columns for node attributes, where each row is a node.
+\code{make_nodelist()} makes a node list from the the "to" and "from" columns of the supplied data frame. A node list is a data frame with a "node" column and, optionally, columns for node attributes, where each row is a node.
 }
 
 \usage{

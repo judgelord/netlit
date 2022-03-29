@@ -39,7 +39,7 @@ nodelist <- make_nodelist(literature,
                           node_attributes = node_attributes)
 
 edgelist <- make_edgelist(literature,
-                          edge_attributes = c("mechanism", "cites"))
+                          edge_attributes = c("cites", "cites_empirical"))
 
 nodelist_augmented <- augment_nodelist(nodelist,
                                        edgelist = edgelist)

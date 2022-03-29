@@ -2,10 +2,10 @@
 \alias{node_attributes}
 \docType{data}
 \title{
-Attributes of redistricting study concepts
+Attributes of redistricting concepts
 }
 \description{
-A dataset with the type of each concept named in the \code{\link{literature}} dataset.
+A dataset with the "type"" of each concept named in the "to" and "from" columns of the \code{\link{literature}} dataset.
 }
 \usage{data("node_attributes")}
 \format{
