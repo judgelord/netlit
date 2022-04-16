@@ -3,21 +3,11 @@ title: "netlit  Vignette"
 author: "Devin Judge-Lord, Adeline Lo & Kyler Hudson"
 subtitle: Redistricting Literature
 output: rmarkdown::html_vignette
-  # html_document:
-  #   highlight: zenburn
-  #   toc: yes
-  #   toc_float: yes
-  #   code_folding: hide
-editor_options:
-  chunk_output_type: console
+#output: pdf_document
 ---
 
-```{r libraries, include=FALSE}
-library(tidyverse)
-library(magrittr)
-library(ggraph)
-# Table formatting
-library(kableExtra)
+```{r, message=FALSE, warning=FALSE}
+library(knitr)
 ```
 
 ```{r setup, include=FALSE}
@@ -28,10 +18,25 @@ knitr::opts_chunk$set(echo = TRUE,
                       out.width = "100%",
                       split = T,
                       fig.align = 'center', 
-                      fig.path='figs/',
+                      fig.path='../figs/',
                       fig.retina = 1, 
                       warning=FALSE, 
                       message=FALSE)
+
+library(kableExtra) # Table formatting
+
+# format kable for document type 
+kable <- function(...){
+  if(knitr::is_latex_output()){
+    head(..., 25) %>% 
+    knitr::kable(booktabs = T, format = 'latex') %>% 
+  kable_styling(latex_options = c("striped", "scale_down", "HOLD_position"))
+    } else {
+    knitr::kable(...) %>% 
+  kable_styling() %>% 
+  scroll_box(height = "200px")
+    }
+}
 ```
 
 
@@ -58,15 +63,12 @@ The `review()` function takes in a dataframe, `data`, that includes `from` and `
 
 In the example below, we use example data from [this project on redistricting](https://github.com/judgelord/redistricting). These data are a set of related concepts (`from` and `to`) in the redistricting literature and citations for these relationships (`cites` and `cites_empirical`). See `vignette("netlit")` for more details on this example.
 
-```{r}
+```{r literature}
 library(netlit)
 
 data("literature")
 
-literature %>% 
-  knitr::kable() %>% 
-  kable_styling() %>% 
-  scroll_box(height = "200px")
+literature %>% kable()
 ```
 
 ---
@@ -77,8 +79,8 @@ literature %>%
 
 `review()` returns a list of three objects: 
 
-1. an augmented `edgelist` (a data frame of relationships with `edge_betweenness` calculated for each relationship betweeing concepts in the `to` and `from` columns), 
-2. an augmented `nodelist` (a data frame of concepts with `degree` and `betweenness` calculated for each `node`), and 
+1. an augmented `edgelist` (a list of relationships with `edge_betweenness` calculated), 
+2. an augmented `nodelist` (a list of concepts with `degree` and `betweenness` calculated), and 
 3. a `graph` object suitable for use in other `igraph` functions or other network visualization packages. 
 
 Users may wish to include edge attributes (e.g., information about the relationship between the two concepts) or node attributes (information about each concept). We show how to do so below. But first, consider the basic use of `review()`: 
@@ -91,17 +93,11 @@ lit
 
 edges <- lit$edgelist
 
-edges %>%  
-  knitr::kable() %>% 
-  kable_styling() %>% 
-  scroll_box(height = "200px")
+edges %>%  kable()
 
 nodes <- lit$nodelist
 
-nodes %>%  
-  knitr::kable() %>% 
-  kable_styling() %>% 
-  scroll_box(height = "200px")
+nodes %>%  kable()
 ```
 
 Edge and node attributes can be added using the `edge_attributes` and `node_attributes` arguments. `edge_attributes` is a vector that identifies columns in the supplied data frame that the user would like to retain. `node_attributes` is a separate dataframe that contains attributes for each node in the primary data set. The example `node_attributes` data include one column `type` indicating a type for each each node/variable/concept. 
@@ -109,10 +105,7 @@ Edge and node attributes can be added using the `edge_attributes` and `node_attr
 ```{r}
 data("node_attributes")
 
-node_attributes %>%  
-  knitr::kable() %>% 
-  kable_styling() %>% 
-  scroll_box(height = "200px")
+node_attributes %>%  kable()
 
 lit <- review(literature,
               edge_attributes = c("cites", "cites_empirical"),
@@ -130,41 +123,25 @@ Tip: to retain all variables from `literature`, use `edge_attributes = names(lit
 
 ### A Larger Edgelist and Nodelist --> 
 
+```{r libraries, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(magrittr)
+library(ggraph)
+```
 
 ```{r include=FALSE}
-literature$from %<>% str_replace_all("([a-z| |-]{8}) ", 
-                           "\\1\n") 
+clean <- . %>% 
+  str_replace_all("([a-z| |-]{8}) ","\\1\n") %>%
+  str_replace_all(" ([a-z| |-]{9})",  "\n\\1") %>% str_to_title() %>% 
+  str_replace("\nOf\n", "\nOf ") %>% 
+  str_replace("\nFellow ", " Fellow\n") %>% 
+  str_replace("\nState\n", " State\n") %>% 
+  str_replace("\nDistrict\n", " District\n") %>% 
+  str_replace("\nWith\n", " With\n")
 
-literature$to %<>% str_replace_all("([a-z| |-]{8}) ", 
-                           "\\1\n") 
-
-literature$from %<>% str_replace_all(" ([a-z| |-]{9})", 
-                           "\n\\1") %>% str_to_title()
-
-literature$to %<>% str_replace_all(" ([a-z| |-]{9})", 
-                           "\n\\1") %>% str_to_title()
-
-literature$from %<>% str_replace("\nOf\n", "\nOf ")
-
-literature$to %<>% str_replace("\nOf\n", "\nOf ")
-
-literature$from %<>% str_replace("\nFellow ", " Fellow\n")
-
-literature$to %<>% str_replace("\nFellow ", " Fellow\n")
-
-literature$from %<>% str_replace("\nState\n", " State\n")
-
-literature$to %<>% str_replace("\nState\n", " State\n")
-
-literature$from %<>% str_replace("\nDistrict\n", " District\n")
-
-literature$to %<>% str_replace("\nDistrict\n", " District\n")
-
-literature$from %<>% str_replace("\nWith\n", " With\n")
-
-literature$to %<>% str_replace("\nWith\n", " With\n")
-
-
+literature$from %<>% clean() 
+literature$to %<>% clean()
+node_attributes$node %<>% clean() 
 ```
 
 We separated multiple cites to a theorized relationship with semicolons. 
@@ -203,17 +180,11 @@ lit <- review(literature,
 
 edges <- lit$edgelist
 
-edges %>%  
-  knitr::kable() %>% 
-  kable_styling() %>% 
-  scroll_box(height = "200px")
+edges %>% kable()
 
 nodes <- lit$nodelist
 
-nodes %>%  
-  knitr::kable() %>% 
-  kable_styling() %>% 
-  scroll_box(height = "200px")
+nodes %>%  kable()
 ```
 
 ### The `igraph` object
@@ -248,8 +219,7 @@ set.seed(5)
 
 p <- ggraph(g, layout = 'fr') + 
   geom_node_point(
-    aes(
-      color = degree_total %>% as.factor() ),
+    aes(color = degree_total %>% as.factor() ),
     size = 6, 
     alpha = .7
     ) + 
@@ -262,7 +232,6 @@ p <- ggraph(g, layout = 'fr') +
       ),
     curvature = 0,
     arrow = arrow(length = unit(2, 'mm'), 
-                  #angle = 45,
                   type = "open")
     ) +
   geom_edge_loop(
@@ -274,7 +243,6 @@ p <- ggraph(g, layout = 'fr') +
       n = 300,
       strength = .6,
     arrow = arrow(length = unit(2, 'mm'), 
-                  #angle = 45, 
                   type = "open")
     ) +
   geom_node_text( aes(label = name), size = 2.3) + 
@@ -284,9 +252,13 @@ p <- ggraph(g, layout = 'fr') +
        color = "Total Degree\nCentrality",
        edge_linetype = "") + 
 scale_edge_color_viridis(discrete = TRUE,
-                         option = "plasma", begin = 0, end = .9, direction = -1) +
-  scale_color_brewer()
-  #scale_color_grey(start = .95, end = .5) 
+                         option = "plasma", 
+                         begin = 0, 
+                         end = .9, 
+                         direction = -1) +
+  scale_color_viridis_d(option = "mako", 
+                        begin = 1, 
+                        end = .5)
 
 p 
 
@@ -314,13 +286,21 @@ ggraph(g, layout = 'fr') +
   theme_void() + 
   theme(legend.position="bottom"
         ) + 
-  scale_color_viridis_c(begin = .5, end = 1, direction = -1, option = "cividis") + 
-scale_edge_color_viridis(begin = 0.2, end = .9, direction = -1, option = "cividis")  +    
-  geom_edge_arc2(aes(
+  scale_color_viridis_c(begin = .5, 
+                        end = 1, 
+                        direction = -1, 
+                        option = "cividis") + 
+scale_edge_color_viridis(begin = 0.2, 
+                         end = .9, 
+                         direction = -1, 
+                         option = "cividis")  +    
+  geom_edge_arc2(
+    aes(
     start_cap = circle(3, 'mm'),
     end_cap = circle(5, 'mm'),
     color = edge_betweenness,
-    linetype = empirical),
+    linetype = empirical
+    ),
     curvature = .1,
     arrow = arrow(length = unit(2, 'mm'), 
                   type = "closed")) + 
@@ -337,7 +317,7 @@ Node Betweenness
 
 p <- ggraph(g, layout = 'fr') + 
   geom_node_point(
-    aes(color = betweenness  ),
+    aes(color = betweenness),
     size = 6, 
     alpha = .7
     ) + 
@@ -350,7 +330,6 @@ p <- ggraph(g, layout = 'fr') +
       ),
     curvature = 0,
     arrow = arrow(length = unit(2, 'mm'), 
-                  #angle = 45,
                   type = "open")
     ) +
   geom_edge_loop(
@@ -362,17 +341,20 @@ p <- ggraph(g, layout = 'fr') +
       n = 300,
       strength = .6,
     arrow = arrow(length = unit(2, 'mm'), 
-                  #angle = 45, 
                   type = "open")
     ) +
-  geom_node_text( aes(label = name), size = 2.3) + 
+  geom_node_text(aes(label = name), 
+                  size = 2.3) + 
   theme_void() + 
   theme(legend.position="bottom") + 
   labs(edge_color = "Number of\nPublications",
        color = "Betweeneness",
        edge_linetype = "") + 
 scale_edge_color_viridis(discrete = TRUE,
-                         option = "plasma", begin = 0, end = .9, direction = -1) +
+                         option = "plasma", 
+                         begin = 0, 
+                         end = .9, 
+                         direction = -1) +
   scale_color_gradient2()
 
 p 
@@ -383,20 +365,26 @@ ggraph(g, layout = 'fr') +
                   size = 10, 
                   alpha = 1) + 
   theme_void() + 
-  theme(legend.position="bottom"        ) + 
- scale_color_viridis_c(begin = .5, end = 1, direction = -1, option = "cividis") + 
-scale_edge_color_viridis(begin = 0.2, end = .9, direction = -1, option = "cividis")  +    
-  #scale_color_gradient2(low = "light blue") + 
-  geom_edge_arc2(aes(
+  theme(legend.position="bottom") + 
+ scale_color_viridis_c(begin = .5, 
+                       end = 1, 
+                       direction = -1, 
+                       option = "cividis") + 
+scale_edge_color_viridis(begin = 0.2, 
+                         end = .9, 
+                         direction = -1, 
+                         option = "cividis")  +    
+  geom_edge_arc2(
+    aes(
     start_cap = circle(3, 'mm'),
     end_cap = circle(5, 'mm'),
     color = edge_betweenness,
-    linetype = empirical),
+    linetype = empirical
+    ),
     curvature = .1,
     arrow = arrow(length = unit(2, 'mm'), 
                   type = "closed")) + 
-    geom_edge_loop(aes(color = edge_betweenness
-                     )) +
+    geom_edge_loop(aes(color = edge_betweenness)) +
   labs(edge_color = "Edge Betweenness",
        color = "Node Betweenness",
        edge_linetype = "") + 
@@ -410,7 +398,7 @@ scale_edge_color_viridis(begin = 0.2, end = .9, direction = -1, option = "cividi
 #TODO
 p <- ggraph(g, layout = 'fr') + 
   geom_node_point(
-    aes(color = coreness  ),
+    aes(color = coreness),
     size = 6, 
     alpha = .7
     ) + 
@@ -423,29 +411,32 @@ p <- ggraph(g, layout = 'fr') +
       ),
     curvature = 0,
     arrow = arrow(length = unit(2, 'mm'), 
-                  #angle = 45,
                   type = "open")
     ) +
   geom_edge_loop(
-      aes( color = cite_weight %>% as_factor(),
-      start_cap = circle(5, 'mm'),
-      end_cap = circle(2, 'mm'),
-      linetype = empirical
+      aes( 
+        color = cite_weight %>% as_factor(),
+        start_cap = circle(5, 'mm'),
+        end_cap = circle(2, 'mm'),
+        linetype = empirical
       ),
       n = 300,
       strength = .6,
     arrow = arrow(length = unit(2, 'mm'), 
-                  #angle = 45, 
                   type = "open")
     ) +
-  geom_node_text( aes(label = name), size = 2.3) + 
+  geom_node_text(aes(label = name), 
+                 size = 2.3) + 
   theme_void() + 
   theme(legend.position="bottom") + 
   labs(edge_color = "Number of\nPublications",
        color = "Coreness",
        edge_linetype = "") + 
 scale_edge_color_viridis(discrete = TRUE,
-                         option = "plasma", begin = 0, end = .9, direction = -1) +
+                         option = "plasma", 
+                         begin = 0, 
+                         end = .9, 
+                         direction = -1) +
   scale_color_gradient2()
 
 p 
@@ -461,17 +452,21 @@ ggraph(g, layout = 'fr') +
   theme_void() + 
   theme(legend.position="bottom"        ) + 
   scale_color_gradient2() + 
-scale_edge_color_viridis(begin = 0.2, end = .9, direction = -1, option = "cividis")  +    
-  geom_edge_arc2(aes(
+scale_edge_color_viridis(begin = 0.2, 
+                         end = .9, 
+                         direction = -1, 
+                         option = "cividis")  +    
+  geom_edge_arc2(
+    aes(
     start_cap = circle(3, 'mm'),
     end_cap = circle(5, 'mm'),
     color = edge_betweenness,
-    linetype = empirical),
+    linetype = empirical
+    ),
     curvature = .1,
     arrow = arrow(length = unit(2, 'mm'), 
                   type = "closed")) + 
-    geom_edge_loop(aes(color = edge_betweenness
-                     )) +
+    geom_edge_loop(aes(color = edge_betweenness)) +
   labs(edge_color = "Edge Betweenness",
        color = "Total Degree",
        edge_linetype = "") + 
@@ -484,24 +479,30 @@ scale_edge_color_viridis(begin = 0.2, end = .9, direction = -1, option = "cividi
 ---
 
 
+# About the example data
 
+Articles were chosen according to specific selection criteria. We first identified articles published since 2010 that either 1) were published in one of eight high-ranking journals or 2) gained at least 50 citations according to Google Scholar. We then chose articles that contained four possible key terms in the title or abstract.
 
+```{r}
+# Journal articles in example data
+data("literature_metadata")
 
+literature_metadata %>% kable()
 
+# count publications per journal
+pub_table <- literature_metadata %>% 
+  filter(str_detect(paste(literature$cites, collapse = "|"), Author)) %>% 
+  count(Publication, name = "Articles") %>%
+  mutate(Publication = case_when(
+    Publication == "AJPS" ~ "American Journal of Political Science",
+    Publication == "APSR" ~ "American Political Science Review",
+    Publication == "BJPS" ~ "British Journal of Political Science",
+    Publication == "JOP" ~ "The Journal of Politics",
+    Publication == "NCL Review" ~ "North Carolina Law Review",
+    Publication == "QJPS" ~ "Quarterly Journal of Political Science",
+    TRUE ~ Publication
+  )) 
 
+pub_table %>% kable()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+```
