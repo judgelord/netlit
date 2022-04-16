@@ -1,9 +1,13 @@
 ---
-title: "netlit  Vignette"
+title: "netlit Vignette"
 author: "Devin Judge-Lord, Adeline Lo & Kyler Hudson"
 subtitle: Redistricting Literature
 output: rmarkdown::html_vignette
 #output: pdf_document
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{netlit Vignette}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, message=FALSE, warning=FALSE}
@@ -18,7 +22,7 @@ knitr::opts_chunk$set(echo = TRUE,
                       out.width = "100%",
                       split = T,
                       fig.align = 'center', 
-                      fig.path='../figs/',
+                      #fig.path='../figs/',
                       fig.retina = 1, 
                       warning=FALSE, 
                       message=FALSE)
