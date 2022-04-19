@@ -21,9 +21,10 @@ knitr::opts_chunk$set(
 ```
 
 # netlit: Augment a literature review with network analysis statistics
+
 ------
 
-`netlit` provides functions to generate network statistics from a literature review. Specifically, it processes a dataset where each row is a proposed relationship ("edges") between two concepts or variables ("nodes").
+`netlit` provides functions to generate network statistics from a literature review. Specifically, it processes a dataset where each row is a proposed relationship ("edge") between two concepts or variables ("nodes").
 
 To install `netlit` from CRAN, run the following:
 
@@ -42,7 +43,7 @@ library(netlit)
 
 data("literature")
 
-names(literature)
+head(literature)
 ```
 
 `netlit` offers four functions: `make_edgelist()`, `make_nodelist()`, `augment_nodelist()`, and `review()`. 
