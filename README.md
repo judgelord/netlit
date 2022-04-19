@@ -1,11 +1,13 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-## \# netlit: Augment a literature review with network analysis statistics
+# netlit: Augment a literature review with network analysis statistics
+
+------------------------------------------------------------------------
 
 `netlit` provides functions to generate network statistics from a
 literature review. Specifically, it processes a dataset where each row
-is a proposed relationship (“edges”) between two concepts or variables
+is a proposed relationship (“edge”) between two concepts or variables
 (“nodes”).
 
 To install `netlit` from CRAN, run the following:
@@ -31,10 +33,16 @@ library(netlit)
 
 data("literature")
 
-names(literature)
+head(literature)
 ```
 
-    #> [1] "to"              "from"            "cites"           "cites_empirical"
+    #>                               from                               to                                                                               cites              cites_empirical
+    #> 1                        computers            detect gerrymandering Altman & McDonald 2010; Wang 2016; Altman & McDonald 2011; Ramachandran & Gold 2018                    Wang 2016
+    #> 2                        computers             public participation                                      Altman & McDonald 2010; Altman & McDonald 2011                         <NA>
+    #> 3  number of competitive districts preserve communities of interest                                                        Gimpel & Harbridge-Yong 2020 Gimpel & Harbridge-Yong 2020
+    #> 4               partisan advantage                  proportionality                                                     Caughey et al. 2017; Tamas 2019                         <NA>
+    #> 5          partisan gerrymandering                   efficiency gap                                                                           Chen 2017                    Chen 2017
+    #> 6 preserve communities of interest              constitutional test                                                                 Stephanopoulos 2012                         <NA>
 
 `netlit` offers four functions: `make_edgelist()`, `make_nodelist()`,
 `augment_nodelist()`, and `review()`.

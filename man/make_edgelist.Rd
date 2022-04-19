@@ -41,7 +41,7 @@ A \code{netlit_edglist} object, which is a data frame identical to \code{data} e
 data("literature")
 
 edgelist <- make_edgelist(literature,
-                          edge_attributes = c("mechanism", "cites"))
+                          edge_attributes = c("cites", "cites_empirical"))
 
 str(edgelist)
 }

@@ -15,15 +15,6 @@ A dataset with the "type"" of each concept named in the "to" and "from" columns 
     \item{\code{type}}{a character vector}
   }
 }
-\details{
-%%  ~~ If necessary, more details than the __description__ above ~~
-}
-\source{
-%%  ~~ reference to a publication or URL from which the data were obtained ~~
-}
-\references{
-%%  ~~ possibly secondary sources and usages ~~
-}
 \examples{
 data("node_attributes")
 }

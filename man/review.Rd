@@ -26,7 +26,7 @@ the name of the column in \code{data} that should be considered the "from" colum
 the name of the column in \code{data} that should be considered the "to" column, ie., representing the nodes to which directed edges point. Default is \code{"to"}.
 }
 \item{node}{
-the name of the column in \code{node_attributes} that should be considered the "node" column that contains the names of the nodes. These names should correspond to node names in the "to" or "from" columns of the main data.  Default is \code{"node"}.
+the name of the column in \code{node_attributes} that should be considered the "node" column that contains the names of the nodes. These names should correspond to node names in the "to" or "from" columns of the main data. Default is \code{"node"}.
 }
 }
 \value{
