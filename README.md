@@ -5,10 +5,30 @@
 
 ------------------------------------------------------------------------
 
+Understanding the gaps and connections across existing theories and
+findings is a perennial challenge in scientific research. Systematically
+reviewing scholarship is especially challenging for researchers who may
+lack domain expertise, including junior scholars or those exploring new
+substantive territory. Conversely, senior scholars may rely on
+longstanding assumptions and social networks that exclude new research.
+In both cases, ad hoc literature reviews hinder accumulation of
+knowledge. Scholars are rarely systematic in selecting relevant prior
+work or then identifying patterns across their sample. To encourage
+systematic, replicable, and transparent methods for assessing
+literature, we propose an accessible network-based framework for
+reviewing scholarship. In our method, we consider a literature as a
+network of recurring concepts (nodes) and theorized relationships among
+them (edges). Network statistics and visualization allow researchers to
+see patterns and offer reproducible characterizations of assertions
+about the major themes in existing literature.
+
 `netlit` provides functions to generate network statistics from a
 literature review. Specifically, it processes a dataset where each row
 is a proposed relationship (“edge”) between two concepts or variables
-(“nodes”).
+(“nodes”). The aim is to offer easy tools to begin using the power of
+network analysis in R for literature reviews. Using `netlit` simply
+requires researchers to enter relationships they observe in prior
+studies into a simple spreadsheet.
 
 To install `netlit` from CRAN, run the following:
 
@@ -36,13 +56,13 @@ data("literature")
 head(literature)
 ```
 
-    #>                               from                               to                                                                               cites              cites_empirical
-    #> 1                        computers            detect gerrymandering Altman & McDonald 2010; Wang 2016; Altman & McDonald 2011; Ramachandran & Gold 2018                    Wang 2016
-    #> 2                        computers             public participation                                      Altman & McDonald 2010; Altman & McDonald 2011                         <NA>
-    #> 3  number of competitive districts preserve communities of interest                                                        Gimpel & Harbridge-Yong 2020 Gimpel & Harbridge-Yong 2020
-    #> 4               partisan advantage                  proportionality                                                     Caughey et al. 2017; Tamas 2019                         <NA>
-    #> 5          partisan gerrymandering                   efficiency gap                                                                           Chen 2017                    Chen 2017
-    #> 6 preserve communities of interest              constitutional test                                                                 Stephanopoulos 2012                         <NA>
+    #>                                 to                             from                                                                               cites              cites_empirical
+    #> 1            detect gerrymandering                        computers Altman & McDonald 2010; Wang 2016; Altman & McDonald 2011; Ramachandran & Gold 2018                    Wang 2016
+    #> 2             public participation                        computers                                      Altman & McDonald 2010; Altman & McDonald 2011                         <NA>
+    #> 3 preserve communities of interest  number of competitive districts                                                        Gimpel & Harbridge-Yong 2020 Gimpel & Harbridge-Yong 2020
+    #> 4                  proportionality               partisan advantage                                                     Caughey et al. 2017; Tamas 2019                         <NA>
+    #> 5                   efficiency gap          partisan gerrymandering                                                                           Chen 2017                    Chen 2017
+    #> 6              constitutional test preserve communities of interest                                                                 Stephanopoulos 2012                         <NA>
 
 `netlit` offers four functions: `make_edgelist()`, `make_nodelist()`,
 `augment_nodelist()`, and `review()`.
@@ -184,3 +204,13 @@ head(lit$nodelist)
     #> 4          partisan gerrymandering condition         1          7            8        42.0
     #> 5 preserve communities of interest      goal         2          6            8        79.0
     #> 6      mean-median vote comparison    metric         0          2            2         0.0
+
+## Mapping literature networks
+
+The output from `review()`is the
+
+``` r
+knitr::include_graphics("man/figures/ggraph-1.png")
+```
+
+<img src="man/figures/ggraph-1.png" style="display: block; margin: auto;" />

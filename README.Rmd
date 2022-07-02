@@ -24,7 +24,11 @@ knitr::opts_chunk$set(
 
 ------
 
+Understanding the gaps and connections across existing theories and findings is a perennial challenge in scientific research. Systematically reviewing scholarship is especially challenging for researchers who may lack domain expertise, including junior scholars or those exploring new substantive territory. Conversely, senior scholars may rely on longstanding assumptions and social networks that exclude new research. In both cases, ad hoc literature reviews hinder accumulation of knowledge. Scholars are rarely systematic in selecting relevant prior work or then identifying patterns across their sample. To encourage systematic, replicable, and transparent methods for assessing literature, we propose an accessible network-based framework for reviewing scholarship. In our method, we consider a literature as a network of recurring concepts (nodes) and theorized relationships among them (edges). 
+Network statistics and visualization allow researchers to see patterns and offer reproducible characterizations of assertions about the major themes in existing literature. 
+
 `netlit` provides functions to generate network statistics from a literature review. Specifically, it processes a dataset where each row is a proposed relationship ("edge") between two concepts or variables ("nodes").
+The aim is to offer easy tools to begin using the power of network analysis in R for literature reviews. Using `netlit` simply requires researchers to enter relationships they observe in prior studies into a simple spreadsheet.
 
 To install `netlit` from CRAN, run the following:
 
@@ -93,4 +97,15 @@ lit
 head(lit$edgelist)
 
 head(lit$nodelist)
+```
+
+
+## Mapping literature networks
+
+Below is a plot of redistricting literature network from the main [`netlit` vignette](https://judgelord.github.io/netlit/articles/vignette.html) using the `graph` object returned by the `netlit::review()` function as the input to network graphing functions from packages like `ggnetwork`. The  `nodelist` and `edgelist` objects also provide required inputs for other network visualization packages, e.g. `ggraph` or `visNetwork` (vignettes on how to make similar plots in `ggraph` and `visNetwork` will be posted shortly).
+
+ Nodes represent theoretical concepts, shaded by total degree centrality. Arrows connect concepts theorized as directional relationships in works, colored by number of works. Solid edges indicate empirically studied connections; dashed are relationships that have been theorized but not studied empirically. 
+
+```{r}
+knitr::include_graphics("man/figures/ggraph-1.png")
 ```

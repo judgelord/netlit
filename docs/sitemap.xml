@@ -13,7 +13,7 @@
     <loc>/articles/index.html</loc>
   </url>
   <url>
-    <loc>/articles/vignette.html</loc>
+    <loc>/articles/netlit.html</loc>
   </url>
   <url>
     <loc>/authors.html</loc>
@@ -29,6 +29,9 @@
   </url>
   <url>
     <loc>/reference/literature.html</loc>
+  </url>
+  <url>
+    <loc>/reference/literature_metadata.html</loc>
   </url>
   <url>
     <loc>/reference/make_edgelist.html</loc>

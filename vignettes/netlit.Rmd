@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = TRUE,
                       out.width = "100%",
                       split = TRUE,
                       fig.align = 'center', 
-                      #fig.path='../figs/',
+                      fig.path='../man/figures/',
                       fig.retina = 1, 
                       warning=FALSE, 
                       message=FALSE)
@@ -39,6 +39,12 @@ kable <- function(...){
   }
 }
 ```
+
+Understanding the gaps and connections across existing theories and findings is a perennial challenge in scientific research. Systematically reviewing scholarship is especially challenging for researchers who may lack domain expertise, including junior scholars or those exploring new substantive territory. Conversely, senior scholars may rely on longstanding assumptions and social networks that exclude new research. In both cases, ad hoc literature reviews hinder accumulation of knowledge. Scholars are rarely systematic in selecting relevant prior work or then identifying patterns across their sample. To encourage systematic, replicable, and transparent methods for assessing literature, we propose an accessible network-based framework for reviewing scholarship. In our method, we consider a literature as a network of recurring concepts (nodes) and theorized relationships among them (edges). 
+Network statistics and visualization allow researchers to see patterns and offer reproducible characterizations of assertions about the major themes in existing literature. 
+
+`netlit` provides functions to generate network statistics from a literature review. Specifically, it processes a dataset where each row is a proposed relationship ("edge") between two concepts or variables ("nodes").
+The aim is to offer easy tools to begin using the power of network analysis in R for literature reviews. Using `netlit` simply requires researchers to enter relationships they observe in prior studies into a simple spreadsheet.
 
 
 # Using the `netlit` R Package 
