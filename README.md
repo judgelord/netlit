@@ -1,7 +1,13 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# netlit: Augment a literature review with network analysis statistics
+# netlit: Augment a literature review with network analysis statistics <img src="man/figures/logo.png" align="right" width="150"/>
+
+<!-- badges: start -->
+
+[![CRAN
+status](https://www.r-pkg.org/badges/version/netlit)](https://CRAN.R-project.org/package=netlit)
+<!-- badges: end -->
 
 ------------------------------------------------------------------------
 
@@ -207,10 +213,20 @@ head(lit$nodelist)
 
 ## Mapping literature networks
 
-The output from `review()`is the
+Below is a plot of redistricting literature network from the main
+[`netlit`
+vignette](https://judgelord.github.io/netlit/articles/vignette.html)
+using the `graph` object returned by the `netlit::review()` function as
+the input to network graphing functions from packages like `ggnetwork`.
+The `nodelist` and `edgelist` objects also provide required inputs for
+other network visualization packages, e.g. `ggraph` or `visNetwork`
+(vignettes on how to make similar plots in `ggraph` and `visNetwork`
+will be posted shortly).
 
-``` r
-knitr::include_graphics("man/figures/ggraph-1.png")
-```
+Nodes represent theoretical concepts, shaded by total degree centrality.
+Arrows connect concepts theorized as directional relationships in works,
+colored by number of works. Solid edges indicate empirically studied
+connections; dashed are relationships that have been theorized but not
+studied empirically.
 
 <img src="man/figures/ggraph-1.png" style="display: block; margin: auto;" />

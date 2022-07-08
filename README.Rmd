@@ -20,8 +20,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-# netlit: Augment a literature review with network analysis statistics
-
+# netlit: Augment a literature review with network analysis statistics <img src="man/figures/logo.png" align="right" width="150"/>
+<!-- badges: start -->
+  [![CRAN status](https://www.r-pkg.org/badges/version/netlit)](https://CRAN.R-project.org/package=netlit)
+  <!-- badges: end -->
+  
 ------
 
 Understanding the gaps and connections across existing theories and findings is a perennial challenge in scientific research. Systematically reviewing scholarship is especially challenging for researchers who may lack domain expertise, including junior scholars or those exploring new substantive territory. Conversely, senior scholars may rely on longstanding assumptions and social networks that exclude new research. In both cases, ad hoc literature reviews hinder accumulation of knowledge. Scholars are rarely systematic in selecting relevant prior work or then identifying patterns across their sample. To encourage systematic, replicable, and transparent methods for assessing literature, we propose an accessible network-based framework for reviewing scholarship. In our method, we consider a literature as a network of recurring concepts (nodes) and theorized relationships among them (edges). 
@@ -106,6 +109,6 @@ Below is a plot of redistricting literature network from the main [`netlit` vign
 
  Nodes represent theoretical concepts, shaded by total degree centrality. Arrows connect concepts theorized as directional relationships in works, colored by number of works. Solid edges indicate empirically studied connections; dashed are relationships that have been theorized but not studied empirically. 
 
-```{r}
+```{r, echo = FALSE}
 knitr::include_graphics("man/figures/ggraph-1.png")
 ```
