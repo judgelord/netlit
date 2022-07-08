@@ -14,5 +14,6 @@
 ^.*/[.].*$
 ^.*\.o$
 ^.*\.so$
-^\vignettes\netlit.Rmd
-^\data\literature_metadata.rda
+^\vignettes$
+^\data\literature_metadata.rda$
+^hex$
