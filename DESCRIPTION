@@ -13,7 +13,7 @@ Authors@R:
 Description: A suite of functions to aid in performing network analysis for 
              literature reviews. These functions process data sets containing 
              directed edges and produce objects that can be readily used with 
-             'igraph' and other network graph-based tools for visualizaiton 
+             'igraph' and other network graph-based tools for visualization 
              and analysis.
 License: MIT + file LICENSE
 Encoding: UTF-8

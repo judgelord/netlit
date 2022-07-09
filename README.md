@@ -51,8 +51,9 @@ In the example below, we use example data from [this project on
 redistricting](https://github.com/judgelord/redistricting). These data
 are a set of related concepts (`from` and `to`) in the redistricting
 literature and citations for these relationships (`cites` and
-`cites_empirical`). See `vignette("netlit")` for more details on this
-example.
+`cites_empirical`). See the main [`netlit`
+vignette](https://judgelord.github.io/netlit/articles/netlit.html) for
+more details on this example.
 
 ``` r
 library(netlit)
@@ -215,13 +216,13 @@ head(lit$nodelist)
 
 Below is a plot of redistricting literature network from the main
 [`netlit`
-vignette](https://judgelord.github.io/netlit/articles/vignette.html)
-using the `graph` object returned by the `netlit::review()` function as
-the input to network graphing functions from packages like `ggnetwork`.
-The `nodelist` and `edgelist` objects also provide required inputs for
-other network visualization packages, e.g. `ggraph` or `visNetwork`
-(vignettes on how to make similar plots in `ggraph` and `visNetwork`
-will be posted shortly).
+vignette](https://judgelord.github.io/netlit/articles/netlit.html) using
+the `graph` object returned by the `netlit::review()` function as the
+input to network graphing functions from packages like `ggnetwork`. The
+`nodelist` and `edgelist` objects also provide required inputs for other
+network visualization packages, e.g. `ggraph` or `visNetwork` (vignettes
+on how to make similar plots in `ggraph` and `visNetwork` will be posted
+shortly).
 
 Nodes represent theoretical concepts, shaded by total degree centrality.
 Arrows connect concepts theorized as directional relationships in works,
