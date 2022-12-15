@@ -30,6 +30,4 @@ vignettes/*.pdf
 literature.Rproj
 NetLit.Rproj
 figs
-tests
-docs
 .DS_Store
