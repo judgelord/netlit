@@ -16,10 +16,10 @@ a data set with a "from" column and a "to" column, where each row represents a d
 an optional character vector of the names of columns in \code{data} containing edge attributes.
 }
 \item{from}{
-the name of the column in \code{data} that should be considered the "from" column, ie., representing the nodes from which directed edges emanate. Default is \code{"from"}.
+the name of the column in \code{data} that should be considered the "from" column, i.e., representing the nodes from which directed edges emanate. Default is \code{"from"}.
 }
 \item{to}{
-the name of the column in \code{data} that should be considered the "to" column, ie., representing the nodes to which directed edges point. Default is \code{"to"}.
+the name of the column in \code{data} that should be considered the "to" column, i.e., representing the nodes to which directed edges point. Default is \code{"to"}.
 }
 }
 \value{
@@ -27,7 +27,7 @@ A \code{netlit_edglist} object, which is a data frame identical to \code{data} e
 \itemize{
 \item all missing values will have been removed (with a warning if present in \code{data})
 \item only the \code{from}, \code{to}, and \code{edge_attributes} columns will be retained, with the \code{from} and \code{to} columns as the first two columns
-\item an added column \code{"edge_betweenness"} will be present containing the edge betweennesses for each edge
+\item an added column \code{"edge_betweenness"} will be present containing the edge betweenness for each edge
 \item the attribute \code{"edge_attributes"} will contain the values supplied to \code{edge_attributes}, if any
 }
 }

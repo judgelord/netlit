@@ -17,3 +17,4 @@
 ^vignettes.*$
 ^.*literature_metadata\.rda$
 ^hex$
+^cran-comments\.md$

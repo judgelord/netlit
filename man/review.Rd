@@ -1,6 +1,6 @@
 \name{review}
 \alias{review}
-\title{Create an edgelist and nodelist augmented with \code{igraph} network statisitics}
+\title{Create an edgelist and nodelist augmented with \code{igraph} network statistics}
 \description{
 Processes a dataframe (and edgelist) by adding network statistics and producing a nodelist and an \code{igraph} graph object for use in subsequent analysis.
 }
@@ -20,10 +20,10 @@ an optional character vector of the names of columns in \code{data} containing e
 an optional data frame with columns "node" as well as any node attributes. Node attribute names may not be the same as any edge attribute names. See \code{\link{make_nodelist}}
 }
 \item{from}{
-the name of the column in \code{data} that should be considered the "from" column, ie., representing the nodes from which directed edges emanate. Default is \code{"from"}.
+the name of the column in \code{data} that should be considered the "from" column, i.e., representing the nodes from which directed edges emanate. Default is \code{"from"}.
 }
 \item{to}{
-the name of the column in \code{data} that should be considered the "to" column, ie., representing the nodes to which directed edges point. Default is \code{"to"}.
+the name of the column in \code{data} that should be considered the "to" column, i.e., representing the nodes to which directed edges point. Default is \code{"to"}.
 }
 \item{node}{
 the name of the column in \code{node_attributes} that should be considered the "node" column that contains the names of the nodes. These names should correspond to node names in the "to" or "from" columns of the main data. Default is \code{"node"}.
@@ -52,7 +52,7 @@ data("literature")
 lit <- review(literature)
 lit
 
-data("node_attribites")
+data("node_attributes")
 lit <- review(literature,
               edge_attributes = c("cites", "cites_empirical"),
               node_attributes = node_attributes)

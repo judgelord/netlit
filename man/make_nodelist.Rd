@@ -19,10 +19,10 @@ a data set with a "from" column and a "to" column, where each row represents a d
 an optional data frame with a "node" column and columns for node attributes, where each row represents a node. (See the \code{node} argument below if this column has a name other than \code{"node"}.)
 }
 \item{from}{
-the name of the column in \code{data} that should be considered the "from" column, ie., representing the nodes from which directed edges emanate. Default is \code{"from"}.
+the name of the column in \code{data} that should be considered the "from" column, i.e., representing the nodes from which directed edges emanate. Default is \code{"from"}.
 }
 \item{to}{
-the name of the column in \code{data} that should be considered the "to" column, ie., representing the nodes to which directed edges point. Default is \code{"to"}.
+the name of the column in \code{data} that should be considered the "to" column, i.e., representing the nodes to which directed edges point. Default is \code{"to"}.
 }
 \item{node}{
 the name of the column in \code{node_attributes} that should be considered the "node" column that contains the names of the nodes. Default is \code{"node"}.

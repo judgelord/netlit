@@ -125,7 +125,7 @@ lit
 Tip: to retain all variables from `literature`, use `edge_attributes = names(literature)`.
 
 
-## More Advanced Uses: larger networks, visualizating your network, network descriptives
+## More Advanced Uses: larger networks, visualizing your network, network descriptives
 
 <!-- Additional columns in the redistricting literature data include discriptions of the `edge` (the relationship between the `to` and `from` concepts), the theorized `mechanism`, and `cite_weight`---the number of studies in the literature that cite that that causal relationship.  
 
@@ -222,7 +222,6 @@ We can also plot using the package `ggraph` package to plot the `igraph` object.
 This package allows us to plot self-ties, but it is slightly more difficult to use ggplot features (e.g. colors and legend labels) compared to `ggnetwork`.
 
 ```{r ggraph, cache= FALSE}
-# best seed 1,4, *5*
 set.seed(5)
 
 p <- ggraph(g, layout = 'fr') + 
@@ -232,10 +231,10 @@ p <- ggraph(g, layout = 'fr') +
     alpha = .7
     ) + 
   geom_edge_arc2(
+    start_cap = circle(3,'mm'),
+    end_cap = circle(6, 'mm'),
     aes(
-      start_cap = circle(3, 'mm'),
-      end_cap = circle(6, 'mm'),
-      color = cite_weight %>% as_factor(),
+      color = cite_weight ,
       linetype = empirical
       ),
     curvature = 0,
@@ -243,10 +242,10 @@ p <- ggraph(g, layout = 'fr') +
                   type = "open")
     ) +
   geom_edge_loop(
-      aes( color = cite_weight %>% as_factor(),
       start_cap = circle(5, 'mm'),
       end_cap = circle(2, 'mm'),
-      linetype = empirical
+      aes( color = cite_weight ,
+           linetype = empirical
       ),
       n = 300,
       strength = .6,
@@ -259,11 +258,14 @@ p <- ggraph(g, layout = 'fr') +
   labs(edge_color = "Number of\nPublications",
        color = "Total Degree\nCentrality",
        edge_linetype = "") + 
-scale_edge_color_viridis(discrete = TRUE,
-                         option = "plasma", 
-                         begin = 0, 
-                         end = .9, 
-                         direction = -1) +
+  scale_edge_colour_viridis(
+                        discrete = FALSE,
+                        option = "plasma",
+                        begin = 0,
+                        end = .9,
+                        direction = -1,
+                        guide = "legend",
+                        aesthetics = "edge_colour") +
   scale_color_viridis_d(option = "mako", 
                         begin = 1, 
                         end = .5)
@@ -301,13 +303,14 @@ ggraph(g, layout = 'fr') +
 scale_edge_color_viridis(begin = 0.2, 
                          end = .9, 
                          direction = -1, 
+                         guide = "legend",
                          option = "cividis")  +    
   geom_edge_arc2(
-    aes(
     start_cap = circle(3, 'mm'),
     end_cap = circle(5, 'mm'),
-    color = edge_betweenness,
-    linetype = empirical
+    aes(
+      color = edge_betweenness,
+      linetype = empirical
     ),
     curvature = .1,
     arrow = arrow(length = unit(2, 'mm'), 
@@ -330,10 +333,10 @@ p <- ggraph(g, layout = 'fr') +
     alpha = .7
     ) + 
   geom_edge_arc2(
-    aes(
       start_cap = circle(3, 'mm'),
       end_cap = circle(6, 'mm'),
-      color = cite_weight %>% as_factor(),
+    aes(
+      color = cite_weight,
       linetype = empirical
       ),
     curvature = 0,
@@ -341,9 +344,9 @@ p <- ggraph(g, layout = 'fr') +
                   type = "open")
     ) +
   geom_edge_loop(
-      aes( color = cite_weight %>% as_factor(),
       start_cap = circle(5, 'mm'),
       end_cap = circle(2, 'mm'),
+      aes( color = cite_weight,
       linetype = empirical
       ),
       n = 300,
@@ -358,11 +361,11 @@ p <- ggraph(g, layout = 'fr') +
   labs(edge_color = "Number of\nPublications",
        color = "Betweeneness",
        edge_linetype = "") + 
-scale_edge_color_viridis(discrete = TRUE,
-                         option = "plasma", 
+scale_edge_color_viridis(option = "plasma", 
                          begin = 0, 
                          end = .9, 
-                         direction = -1) +
+                         direction = -1,
+                         guide = "legend") +
   scale_color_gradient2()
 
 p 
@@ -381,11 +384,12 @@ ggraph(g, layout = 'fr') +
 scale_edge_color_viridis(begin = 0.2, 
                          end = .9, 
                          direction = -1, 
-                         option = "cividis")  +    
+                         option = "cividis",
+    guide = "legend")  +    
   geom_edge_arc2(
-    aes(
     start_cap = circle(3, 'mm'),
     end_cap = circle(5, 'mm'),
+    aes(
     color = edge_betweenness,
     linetype = empirical
     ),
@@ -411,9 +415,9 @@ p <- ggraph(g, layout = 'fr') +
     alpha = .7
     ) + 
   geom_edge_arc2(
+    start_cap = circle(3, 'mm'),
+    end_cap = circle(6, 'mm'),
     aes(
-      start_cap = circle(3, 'mm'),
-      end_cap = circle(6, 'mm'),
       color = cite_weight %>% as_factor(),
       linetype = empirical
       ),
@@ -422,10 +426,10 @@ p <- ggraph(g, layout = 'fr') +
                   type = "open")
     ) +
   geom_edge_loop(
+    start_cap = circle(5, 'mm'),
+    end_cap = circle(2, 'mm'),
       aes( 
         color = cite_weight %>% as_factor(),
-        start_cap = circle(5, 'mm'),
-        end_cap = circle(2, 'mm'),
         linetype = empirical
       ),
       n = 300,
@@ -463,11 +467,12 @@ ggraph(g, layout = 'fr') +
 scale_edge_color_viridis(begin = 0.2, 
                          end = .9, 
                          direction = -1, 
-                         option = "cividis")  +    
+                         option = "cividis",
+                         guide = "legend")  +    
   geom_edge_arc2(
-    aes(
     start_cap = circle(3, 'mm'),
     end_cap = circle(5, 'mm'),
+    aes(
     color = edge_betweenness,
     linetype = empirical
     ),

@@ -1,6 +1,6 @@
 Package: netlit
 Title: Augment a Literature Review with Network Analysis Statistics
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: 
     c(person(given = "Devin",
            family = "Judge-Lord",
@@ -28,6 +28,4 @@ Depends:
 Suggests:
     kableExtra,
     knitr,
-    rmarkdown,
-    testthat (>= 3.0.0)
-Config/testthat/edition: 3
+    rmarkdown

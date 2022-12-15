@@ -9,7 +9,7 @@ A dataset with the "type"" of each concept named in the "to" and "from" columns 
 }
 \usage{data("node_attributes")}
 \format{
-  A data frame with 108 observations on the following 2 variables.
+  A data frame with 56 observations on the following 2 variables.
   \describe{
     \item{\code{node}}{a character vector}
     \item{\code{type}}{a character vector}

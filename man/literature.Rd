@@ -9,7 +9,7 @@ A dataset containing the relationships between concepts identified in the redist
 }
 \usage{data("literature")}
 \format{
-  A data frame with 69 observations on the following 10 variables.
+  A data frame with 69 observations on the following 4 variables.
   \describe{
     \item{\code{from}}{a character vector}
     \item{\code{to}}{a character vector}
