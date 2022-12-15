@@ -22,6 +22,9 @@
     <loc>/index.html</loc>
   </url>
   <url>
+    <loc>/readme.html</loc>
+  </url>
+  <url>
     <loc>/reference/augment_nodelist.html</loc>
   </url>
   <url>
@@ -44,5 +47,8 @@
   </url>
   <url>
     <loc>/reference/review.html</loc>
+  </url>
+  <url>
+    <loc>/vignette-bias.html</loc>
   </url>
 </urlset>
