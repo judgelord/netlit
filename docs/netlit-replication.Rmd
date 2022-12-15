@@ -225,6 +225,7 @@ This package allows us to plot self-ties, but it is slightly more difficult to u
 
 ```{r ggraph, cache= FALSE}
 set.seed(5)
+library(ggraph)
 
 p <- ggraph(g, layout = 'fr') + 
   geom_node_point(
@@ -274,6 +275,7 @@ p <- ggraph(g, layout = 'fr') +
 
 p 
 
+ggsave(filename = "docs/netlit-replication_files/figure-html/figure2.pdf", width=10, height=7)
 ```
 
 ---
@@ -283,7 +285,12 @@ p
 ```{r ggraph-subset,fig.width=20, cache=FALSE, fig.retina=8}
 p + facet_wrap("communities_node")
 
+ggsave(filename = "docs/netlit-replication_files/figure-html/figure3a.pdf", width=20, height=7)
+
 p + facet_wrap("confound")
+
+
+ggsave(filename = "docs/netlit-replication_files/figure-html/figure3b.pdf", width=20, height=7)
 ```
 
 
