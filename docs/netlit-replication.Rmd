@@ -413,55 +413,6 @@ scale_edge_color_viridis(begin = 0.2,
                  size = 2.3) 
 ```
 
-<!--### Coreness --> 
-
-```{r ggraph-coreness, eval=FALSE, include=FALSE}
-#TODO
-p <- ggraph(g, layout = 'fr') + 
-  geom_node_point(
-    aes(color = coreness),
-    size = 6, 
-    alpha = .7
-    ) + 
-  geom_edge_arc2(
-    start_cap = circle(3, 'mm'),
-    end_cap = circle(6, 'mm'),
-    aes(
-      color = cite_weight %>% as_factor(),
-      linetype = empirical
-      ),
-    curvature = 0,
-    arrow = arrow(length = unit(2, 'mm'), 
-                  type = "open")
-    ) +
-  geom_edge_loop(
-    start_cap = circle(5, 'mm'),
-    end_cap = circle(2, 'mm'),
-      aes( 
-        color = cite_weight %>% as_factor(),
-        linetype = empirical
-      ),
-      n = 300,
-      strength = .6,
-    arrow = arrow(length = unit(2, 'mm'), 
-                  type = "open")
-    ) +
-  geom_node_text(aes(label = name), 
-                 size = 2.3) + 
-  theme_void() + 
-  theme(legend.position="bottom") + 
-  labs(edge_color = "Number of\nPublications",
-       color = "Coreness",
-       edge_linetype = "") + 
-scale_edge_color_viridis(discrete = TRUE,
-                         option = "plasma", 
-                         begin = 0, 
-                         end = .9, 
-                         direction = -1) +
-  scale_color_gradient2()
-
-p 
-```
 
 ### Degree
 
