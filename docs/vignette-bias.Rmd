@@ -65,8 +65,8 @@ library(tidyverse)
 library(magrittr)
 
 # Load replication version of main data and metadata on citations
-load("replication_data/literature_metadata.rda")
-load("replication_data/literature.rda")
+load(here::here("replication_data","literature_metadata.rda"))
+load(here::here("replication_data","literature.rda"))
 
 names(literature_metadata) %<>% janitor::make_clean_names()
 

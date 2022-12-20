@@ -75,7 +75,7 @@ In the example below, we use example data from [this project on redistricting](h
 library(netlit)
 
 # Load replication version of main data and metadata on citations
-load("replication_data/literature.rda")
+load(here::here("replication_data", "literature.rda"))
 
 literature %>% kable()
 ```
@@ -113,7 +113,7 @@ Edge and node attributes can be added using the `edge_attributes` and `node_attr
 
 ```{r}
 # Load replication version of node type coding
-load("replication_data/node_attributes.rda")
+load(here::here("replication_data/node_attributes.rda"))
 
 node_attributes %>% kable()
 
