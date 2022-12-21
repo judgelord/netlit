@@ -22,7 +22,11 @@ This vignette shows examples of assessing bias in literature review networks bas
 ```{r setup, include=FALSE,  message=FALSE, warning=FALSE}
 library(knitr)
 library(igraph)
-
+library(netlit)
+library(tidyverse)
+library(tidyr)
+library(magrittr)
+library(ggraph)
 knitr::opts_chunk$set(echo = TRUE, 
                       cache = FALSE,
                       fig.width=10, 
@@ -60,9 +64,6 @@ kable <- function(...){
 ## Lead Author Gender, H-Index, and Citation
 
 ```{r literature}
-library(netlit)
-library(tidyverse)
-library(magrittr)
 
 # Load replication version of main data and metadata on citations
 load(here::here("replication_data","literature_metadata.rda"))
@@ -204,7 +205,7 @@ lit <- literature_long %>%
   distinct(to, from) %>% 
     left_join( subgraph$edgelist %>% distinct(to, from) %>% mutate(missing_edges = "Not missing") 
 ) %>% 
-    mutate(missing_edges = replace_na(missing_edges, "Missing")) 
+    mutate(missing_edges = tidyr::replace_na(missing_edges, "Missing")) 
 
 lit %<>% 
   review(edge_attributes = names(lit))  
@@ -484,7 +485,7 @@ Average diameter recovered: `r summary$diameter %>% mean() `
 
 ```{r draw-hindex-bias, out.width= "20%", cache=TRUE, results='hide'}
 literature_long %<>%
-  mutate(author_h_index = replace_na(author_h_index, 0 ))
+  mutate(author_h_index = tidyr::replace_na(author_h_index, 0 ))
 
 #  biased samples
 hindex_samples <- samples <- map(1:n_samples, sample_lit,literature_long=literature_long, prob = literature_long$weight)
@@ -524,7 +525,7 @@ Average diameter recovered: `r summary$diameter %>% mean() `
 
 ```{r draw-citation-bias, out.width= "20%", cache=TRUE, results='hide'}
 literature_long %<>%
-  mutate(author_citations = replace_na(author_citations, 0 ))
+  mutate(author_citations = tidyr::replace_na(author_citations, 0 ))
 
 # gender-biased samples
 citations_samples <- map(1:n_samples, sample_lit,literature_long=literature_long, prob = literature_long$author_citations)

@@ -57,10 +57,6 @@ researcher_1_network <- ggraph(coder1_graph, layout = "fr") +
 researcher_1_network
 ```
 
-\
-\
-\
-
 ```{r experiment_results2}
 coder2_lit <- review(coder2_df)
 
